@@ -1,0 +1,49 @@
+.chatBox {
+    max-width: 800px; /* Increased max-width for a larger chat box */
+    margin: 0 auto;
+  }
+  
+  .chatMessages {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px; /* Added padding for messages */
+    max-height: 400px; /* Increased max-height for a taller chat box */
+    overflow-y: auto;
+  }
+  
+  .message {
+    margin-bottom: 10px;
+    padding: 12px; /* Added padding for each message */
+    border-radius: 8px; /* Increased border-radius for a slightly rounded look */
+  }
+  
+  .message:nth-child(even) {
+    background-color: #f0f0f0;
+  }
+  
+  .inputContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .input {
+    flex-grow: 1;
+    padding: 12px; /* Added padding for the input field */
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px; /* Increased border-radius for a slightly rounded look */
+  }
+  
+  .sendButton {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 16px; /* Adjusted padding for the send button */
+    border: none;
+    border-radius: 8px; /* Increased border-radius for a slightly rounded look */
+    cursor: pointer;
+  }
+  
+  /* Add any other styles as needed for your chat box */
+  
