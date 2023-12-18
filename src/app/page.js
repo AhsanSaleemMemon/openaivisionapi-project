@@ -4,16 +4,18 @@ import Image from 'next/image';
 import styles from './page.module.css';
 import Chat from './components/Chat';
 import Modal from './components/Modal';
-
+import { encryptApiKey, decryptApiKey } from '@/utils/encrypt';
 export default function Home() {
   const [openaiAPIKey, setOpenaiAPIKey] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // Check if OpenAI API key is stored in the cache
-    const cachedAPIKey = localStorage.getItem('openaiAPIKey');
+    const cachedAPIKey = localStorage.getItem('key');
+    
     if (cachedAPIKey) {
-      setOpenaiAPIKey(cachedAPIKey);
+      const decryptedKey = decryptApiKey(cachedAPIKey);
+      setOpenaiAPIKey(decryptedKey);
     } else {
       // If not, show the setup modal
       setShowModal(true);
@@ -22,8 +24,9 @@ export default function Home() {
 
   const handleAPIKeySetup = (apiKey) => {
     // Save the API key to the cache
-    localStorage.setItem('openaiAPIKey', apiKey);
-    setOpenaiAPIKey(apiKey);
+    const encryptedKey = encryptApiKey(apiKey);
+    localStorage.setItem('key', encryptedKey);
+    setOpenaiAPIKey(encryptedKey);
     setShowModal(false);
   };
 

@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import styles from './styles/chatbox.module.css';
-import { sendImageToOpenAI } from '../../api/openApi';
-
+import { sendImageToOpenAI, sendTextToOpenAI } from '../../api/openApi';
+import { encryptApiKey } from '@/utils/encrypt';
 export default function Chat({ openaiAPIKey }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [userMessage, setUserMessage] = useState('');
@@ -10,33 +10,57 @@ export default function Chat({ openaiAPIKey }) {
   const fileInputRef = useRef(null);
 
   const handleSendMessage = async () => {
-    let botResponse;
-
-    if (uploadedImage) {
-      botResponse = await sendImageToOpenAI(uploadedImage, userMessage);
-      setUploadedImage(null);
-      fileInputRef.current.value = '';
-      setIsSendButtonDisabled(true);
-    } else {
-      botResponse = await simulateBotResponse(userMessage);
+    try {
+      let botResponse;
+  
+      if (uploadedImage) {
+        botResponse = await sendImageToOpenAI(uploadedImage, userMessage, chatMessages);
+        setUploadedImage(null);
+        fileInputRef.current.value = '';
+        setIsSendButtonDisabled(true);
+      } else {
+        botResponse = await sendImageToOpenAI(null, userMessage, chatMessages);
+      }
+  
+      const userMessageData = { sender: 'user', text: userMessage, image: uploadedImage };
+      const botMessageData = {
+        sender: 'assistant',
+        text: uploadedImage ? botResponse.data.choices[0].message.content : botResponse.data.choices[0].message.content,
+      };
+  
+      setChatMessages([...chatMessages, userMessageData, botMessageData]);
+      setUserMessage('');
+    } catch (error) {
+      alert(`Error: ${error.message}`);
     }
-
-    setChatMessages([
-      ...chatMessages,
-      { sender: 'user', text: userMessage, image: uploadedImage },
-      { sender: 'bot', text: botResponse.data.choices[0].message.content },
-    ]);
-
-    setUserMessage('');
   };
+  const handleApiKeyChange = () => {
+    const newApiKey = prompt('Enter the new API key:');
+    if (newApiKey) {
+      const encryptedKey = encryptApiKey(newApiKey);
 
-
+      // setApiKey(newApiKey);
+      window.localStorage.setItem('key', encryptedKey);
+    }
+  };
   const simulateBotResponse = async (userMessage) => {
     // Simulate an asynchronous delay
     await new Promise((resolve) => setTimeout(resolve, 500));
-
+  
     // Simulate a simple bot response
-    return `GPT-Bot: I received your message: "${userMessage}". This is a simulated response.`;
+    const botResponse = {
+      data: {
+        choices: [
+          {
+            message: {
+              content: `GPT-Bot: I received your message: "${userMessage}". This is a simulated response.`,
+            },
+          },
+        ],
+      },
+    };
+  
+    return botResponse;
   };
 
   const simulateBotResponseWithImage = async (imagePath) => {
@@ -73,6 +97,11 @@ export default function Chat({ openaiAPIKey }) {
 
   return (
 <div className={styles.chatBox}>
+<div className={styles.apiKeyChange}>
+        <button className={styles.changeKeyButton} onClick={handleApiKeyChange}>
+          Change API Key
+        </button>
+      </div>
     <div className={styles.chatMessages}>
       {chatMessages.map((message, index) => (
         <div key={index} className={styles.message}>

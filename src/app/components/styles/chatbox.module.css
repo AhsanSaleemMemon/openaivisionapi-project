@@ -2,6 +2,28 @@
     max-width: 800px; /* Increased max-width for a larger chat box */
     margin: 0 auto;
   }
+
+  /* styles/chatbox.module.css */
+.apiKeyChange {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.changeKeyButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.changeKeyButton:hover {
+  background-color: #2980b9;
+}
+
   
   .chatMessages {
     border: 1px solid #ccc;
