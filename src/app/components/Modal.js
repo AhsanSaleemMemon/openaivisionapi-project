@@ -8,7 +8,7 @@ export default function Modal({ onClose, children }) {
         <button className={styles.closeButton} onClick={onClose}>
           X
         </button>
-        {children}
+        <div className={styles.modalContent}>{children}</div>
       </div>
     </div>
   );

@@ -30,6 +30,10 @@ export default function Home() {
     setShowModal(false);
   };
 
+  
+  const handleOpenModal = () => {
+    setShowModal(true);
+  };
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -46,7 +50,11 @@ export default function Home() {
 
       {/* Chat UI */}
       {openaiAPIKey && <Chat openaiAPIKey={openaiAPIKey} />}
-
+      {!openaiAPIKey && (
+        <div className={styles.apiKeyButton}>
+          <button onClick={handleOpenModal}>Set API Key</button>
+        </div>
+      )}
       {/* API setup modal */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
@@ -67,16 +75,19 @@ function ApiKeySetupForm({ onSubmit }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        API Key:
-        <input
-          type="text"
-          value={apiKey}
-          onChange={(e) => setApiKey(e.target.value)}
-        />
-      </label>
-      <button type="submit">Submit</button>
-    </form>
+    <form onSubmit={handleSubmit} className={styles.formContainer}>
+    <label>
+      API Key:
+      <input
+        type="text"
+        value={apiKey}
+        onChange={(e) => setApiKey(e.target.value)}
+        className={styles.inputField}
+      />
+    </label>
+    <button type="submit" className={styles.submitButton}>
+      Submit
+    </button>
+  </form>
   );
 }
