@@ -59,11 +59,17 @@
   gap: 15px;
 }
 
+.modalText {
+  color: #000; /* Set text color to white */
+}
+
 .inputField {
+  background-color: #fff; /* Set the background color to white */
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   font-size: 16px;
+  color:#000;
 }
 
 .submitButton {

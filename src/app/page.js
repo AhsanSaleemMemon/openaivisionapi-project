@@ -58,7 +58,7 @@ export default function Home() {
       {/* API setup modal */}
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <p>Please set up your OpenAI API key:</p>
+          <p className={styles.modalText}>Please set up your OpenAI API key:</p>
           <ApiKeySetupForm onSubmit={handleAPIKeySetup} />
         </Modal>
       )}
@@ -76,7 +76,7 @@ function ApiKeySetupForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit} className={styles.formContainer}>
-    <label>
+    <label className={styles.modalText} >
       API Key:
       <input
         type="text"
