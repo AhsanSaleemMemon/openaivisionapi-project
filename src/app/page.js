@@ -33,10 +33,9 @@ export default function Home() {
 
   
   const isIOS = () => {
-    if(typeof window !== 'undefined'){return (
-      !window.MSStream &&
-      /iPad|iPhone|iPod/i.test(navigator.userAgent)
-    );}
+   
+      return /iPad|iPhone|iPod/i.test(navigator.userAgent)
+    
   };
 
   
