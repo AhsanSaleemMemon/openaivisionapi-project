@@ -33,9 +33,7 @@ export default function Home() {
 
   
   const isIOS = () => {
-   
-      return /iPad|iPhone|iPod/i.test(navigator.userAgent)
-    
+    return typeof navigator !== 'undefined' && /iPad|iPhone|iPod/i.test(navigator.userAgent);
   };
 
   
