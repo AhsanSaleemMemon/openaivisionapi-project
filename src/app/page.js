@@ -54,7 +54,7 @@ export default function Home() {
 
       <div className={styles.center}>
        <h1>Image Explain with GPT4</h1>
-       <p>is Ios : {isIOS()}</p>
+       <p>is Ios : {isIOS()? "IOS":"NOT IOS"}</p>
       </div>
 
       <div className={styles.grid}>
