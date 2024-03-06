@@ -30,6 +30,14 @@ export default function Home() {
     setShowModal(false);
   };
 
+
+  const isIOS = () => {
+    return (
+      !window.MSStream &&
+      /iPad|iPhone|iPod/i.test(navigator.userAgent)
+    );
+  };
+
   
   const handleOpenModal = () => {
     setShowModal(true);
@@ -42,6 +50,7 @@ export default function Home() {
 
       <div className={styles.center}>
        <h1>Image Explain with GPT4</h1>
+       <p>is Ios : {isIOS()}</p>
       </div>
 
       <div className={styles.grid}>
@@ -86,7 +95,8 @@ function ApiKeySetupForm({ onSubmit }) {
       />
     </label>
     <button type="submit" className={styles.submitButton}>
-      Submit
+      Submit 
+      
     </button>
   </form>
   );
