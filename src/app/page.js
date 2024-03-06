@@ -33,9 +33,15 @@ export default function Home() {
 
   
   const isIOS = () => {
-    return typeof navigator !== 'undefined' && /iPad|iPhone|iPod/i.test(navigator.userAgent);
+    const isNavigatorAvailable = typeof navigator !== 'undefined';
+    console.log('Is navigator available:', isNavigatorAvailable);
+    if (isNavigatorAvailable) {
+      const isIOSDevice = /iPad|iPhone|iPod/i.test(navigator.userAgent);
+      console.log('Is iOS:', isIOSDevice);
+      return isIOSDevice;
+    }
+    return false;
   };
-
   
   const handleOpenModal = () => {
     setShowModal(true);
