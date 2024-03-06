@@ -31,11 +31,12 @@ export default function Home() {
   };
 
 
+  
   const isIOS = () => {
-    return (
+    if(typeof window !== 'undefined'){return (
       !window.MSStream &&
       /iPad|iPhone|iPod/i.test(navigator.userAgent)
-    );
+    );}
   };
 
   
